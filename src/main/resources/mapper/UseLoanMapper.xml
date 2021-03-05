@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.UseLoanMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.UseLoan" id="UseLoan">
+        <result property="id" column="id"/>
+        <result property="useLoan" column="use_loan"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!-- 查询表中借款用途-->
+    <select id="selectUseLoan" resultType="com.zxr.mygraduation.entity.UseLoan" resultMap="UseLoan">
+        select * from useloan
+    </select>
+    <!-- 实现对表记录的插入 -->
+    <insert id="insertUseLoan" useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+            parameterType="com.zxr.mygraduation.entity.UseLoan">
+        insert into useloan (use_loan)
+        values(#{useLoan})
+    </insert>
+    <!-- 更新修改记录-->
+    <update id="updateUseLoan" parameterType="com.zxr.mygraduation.entity.UseLoan">
+    update useloan set
+    use_loan=#{useLoan}
+    where id=#{id}
+    </update>
+    <!--根据use_loan删除记录-->
+    <delete id="deleteUseLoan">
+    delete from useloan where use_loan=#{useLoan}
+    </delete>
+</mapper>

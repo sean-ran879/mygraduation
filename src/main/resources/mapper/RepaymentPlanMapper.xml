@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.RepaymentPlanMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.RepaymentPlan" id="RepaymentPlan">
+        <result property="repayNum" column="repay_num"/>
+        <result property="transflowId" column="transflow_id"/>
+        <result property="investId" column="invest_id"/>
+        <result property="loanId" column="loan_id"/>
+        <result property="perPeriod" column="per_period"/>
+        <result property="borrowDate" column="borrow_date"/>
+        <result property="repMoney" column="rep_money"/>
+        <result property="repayStatus" column="repay_status"/>
+        <result property="realRepaydate" column="real_repaydate"/>
+    </resultMap>
+    <insert id="insertRepaymentPlan" parameterType="java.util.List">
+        insert into repayment_plan(transflow_id,invest_id,loan_id,per_period,borrow_date,rep_money) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.transflowId},#{item.investId},#{item.loanId},
+            #{item.perPeriod},#{item.borrowDate},#{item.repMoney})
+        </foreach>
+    </insert>
+    <select id="selectMoney" resultType="java.lang.Double">
+        select sum(rep_money) from repayment_plan where loan_id=#{loanId} and repay_status=0
+    </select>
+</mapper>

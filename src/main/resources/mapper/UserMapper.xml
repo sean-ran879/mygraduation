@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.UserMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.User" id="User">
+        <result property="userId" column="user_id"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="passWord" column="password"/>
+        <result property="transPw" column="trans_pw"/>
+        <result property="userRole" column="user_role"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!-- 查询表中的所有内容-->
+    <select id="selectUser" resultType="com.zxr.mygraduation.entity.User"
+            resultMap="User">
+        select * from user
+    </select>
+    <!-- 根据userPhone查询记录-->
+    <select id="selectByUserPhone" resultType="com.zxr.mygraduation.entity.User"
+            resultMap="User">
+        select * from user where user_phone=#{userPhone}
+    </select>
+    <!-- 根据userPhone查询记录-->
+    <select id="selectById" resultType="com.zxr.mygraduation.entity.User"
+            resultMap="User">
+        select * from user where user_id=#{userId}
+    </select>
+    <!-- 实现对表记录的插入 -->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id"
+            parameterType="com.zxr.mygraduation.entity.User">
+        insert into user (user_id,user_phone,password,user_role)
+        values(#{userId},#{userPhone},#{passWord},#{userRole})
+    </insert>
+    <!-- 实现对交易密码的插入 -->
+    <insert id="insertUserPw" useGeneratedKeys="true" keyProperty="userId"
+            keyColumn="user_id"
+            parameterType="com.zxr.mygraduation.entity.User">
+        insert into user (trans_pw)
+        values(#{transPw})
+    </insert>
+    <!-- 更新修改记录-->
+    <update id="updateUser" parameterType="com.zxr.mygraduation.entity.User">
+    update user
+        <set>
+        <if test="userPhone!=null">
+            user_phone=#{userPhone},
+        </if>
+        <if test="passWord!=null">
+             password=#{passWord},
+        </if>
+        <if test="transPw!=null">
+            trans_pw=#{transPw},
+        </if>
+        <if test="userRole!=null">
+            user_role=#{userRole},
+        </if>
+        </set>
+    where user_id=#{userId}
+    </update>
+    <!--&lt;!&ndash; 根据id删除记录&ndash;&gt;-->
+    <!--<delete id="deleteDs">-->
+    <!--delete from day_summary where cust_id=#{custId}-->
+    <!--</delete>-->
+    <!--&lt;!&ndash; 分页显示&ndash;&gt;-->
+    <!--<select id="pageDaySummaryList" resultMap="DaySummary">-->
+    <!--select * from day_summary limit #{pageNow},#{pageSize}-->
+    <!--</select>-->
+</mapper>

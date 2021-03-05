@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.GuaranteeInfoMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.GuaranteeInfo" id="GuaranteeInfo">
+        <result property="guaranteeId" column="guarantee_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="guaranteeName" column="guarantee_name"/>
+        <result property="guaranteeWork" column="guarantee_work"/>
+        <result property="relation" column="relation"/>
+        <result property="guaranteePhone" column="guarantee_phone"/>
+    </resultMap>
+    <!-- 实现对表记录的插入 -->
+    <insert id="insertGuarantee" useGeneratedKeys="true"  parameterType="com.zxr.mygraduation.entity.GuaranteeInfo">
+        insert into guarantee_info (guarantee_id,user_id,guarantee_name,guarantee_work,relation,guarantee_phone)
+        values(#{guaranteeId},#{userId},#{guaranteeName},#{guaranteeWork},#{relation}, #{guaranteePhone})
+    </insert>
+    <!-- 更新修改记录-->
+    <update id="updateGuarantee" parameterType="com.zxr.mygraduation.entity.GuaranteeInfo">
+    update guarantee_info set
+    guarantee_name=#{guaranteeName},
+    guarantee_work=#{guaranteeWork},
+    relation=#{relation},
+    guarantee_phone=#{guaranteePhone}
+    where user_id=#{userId}
+    </update>
+    <!-- 根据userId查询记录-->
+    <select id="selectByUserId" resultType="com.zxr.mygraduation.entity.GuaranteeInfo" resultMap="GuaranteeInfo">
+        select * from guarantee_info where user_id=#{userId}
+    </select>
+</mapper>

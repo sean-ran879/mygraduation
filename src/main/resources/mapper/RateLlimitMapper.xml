@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.RateLimitMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.RateLimit" id="RateLimit">
+        <result property="id" column="id"/>
+        <result property="totalPeriod" column="total_period"/>
+        <result property="rateMin" column="rate_min"/>
+        <result property="rateMax" column="rate_max"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!-- 查询表中的所有内容-->
+    <select id="selectRateLimit" resultType="com.zxr.mygraduation.entity.RateLimit"
+            resultMap="RateLimit">
+        select * from rate_limit
+    </select>
+    <select id="selectByTotal" resultType="com.zxr.mygraduation.entity.RateLimit"
+            resultMap="RateLimit">
+        select * from rate_limit where total_period=#{totalPeriod}
+    </select>
+    <!-- 更新修改记录-->
+    <update id="updateRateLimit" parameterType="com.zxr.mygraduation.entity.RateLimit">
+        update rate_limit
+        <set>
+            <if test="totalPeriod!=null">
+                total_period=#{totalPeriod},
+            </if>
+            <if test="rateMin!=null">
+                rate_min=#{rateMin},
+            </if>
+            <if test="rateMax!=null">
+                rate_max=#{rateMax},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

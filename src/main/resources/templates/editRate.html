@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../../resource/common/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../resource/css/public.css" media="all"/>
+</head>
+<style>
+</style>
+<body>
+<script  type="text/javascript">
+var rateMin,rateMax,id;
+var url = location.search;//获取url中"?"符后的字串
+if (url.indexOf("?") != -1) {
+var str = url.substr(1);
+strs = str.split("&");
+
+id = decodeURIComponent(strs[0].replace("id=",""));
+
+rateMax= decodeURIComponent(strs[1].replace("rateMax=",""));
+
+rateMin = decodeURIComponent(strs[2].replace("rateMin=",""));
+
+
+}
+</script>
+<div class="layui-form" style="margin:auto;margin-top:30px;width: 90%">
+    <div class="layui-form-item">
+        <label class="layui-form-label">费率最小值</label>
+        <div class="layui-input-block">
+            <input type="text" name="rateMin"  id="rateMin" autocomplete="off" placeholder=""
+                   class="layui-input">
+        </div>
+        <label class="layui-form-label"> </label>
+        <div class="layui-input-block">
+        </div>
+        <label class="layui-form-label">费率最大值</label>
+        <div class="layui-input-block">
+            <input type="text" name="rateMax" id="rateMax"  autocomplete="off" placeholder=""
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="position: fixed;bottom: 0px;right: 10px">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="Submit">立即提交</button>
+            <button type="" class="layui-btn layui-btn-primary close">取消</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../resource/common/layui/layui.js"></script>
+
+<script type="text/javascript">
+
+    layui.use(['table', 'layer', 'laydate', 'form', 'upload', 'layedit'], function () {
+        var table = layui.table,
+            $ = layui.$,
+            upload = layui.upload,
+            layedit = layui.layedit,
+            layer = layui.layer,
+            form = layui.form
+        form.on('submit(Submit)', function (data) {
+
+            //为子页面id为id的元素赋值
+            $.ajax({
+                url: '/RateLimit/editRateLimit',
+                type: 'get',
+                data: { rateMin:data.field.rateMin,
+                    rateMax:data.field.rateMax,
+                    id:id
+                },
+                dataType: 'json',
+                async: false,
+                success: function (result) {
+                    if (!result.status) {
+                        parent.layer.msg(result.msg, {time: 2000});
+                        return false;
+                    } else {
+                        parent.layer.msg("编辑成功!", {time: 1000});
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                        parent.layui.table.reload('tableId', {});
+                    }
+                }
+            });
+        });
+        var index = layedit.build('LAY_demo_editor');
+        $('.close').on('click', function () {
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+        })
+    });
+
+</script>
+
+</body>
+</html>

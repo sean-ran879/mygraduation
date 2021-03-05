@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.CreditVerifyMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.CreditVerify" id="CreditVerify">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="result" column="result"/>
+        <result property="verifyType" column="verify_type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!--添加记录-->
+    <insert id="insertCreditVerify" useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+            parameterType="com.zxr.mygraduation.entity.CreditVerify">
+        insert into credit_verify (user_id,result,verify_type)
+        values(#{userId},#{result},#{verify_type})
+    </insert>
+    <!-- 查询是否进行实名认证-->
+    <select id="selectByVerifyType" resultType="com.zxr.mygraduation.entity.CreditVerify" resultMap="CreditVerify">
+        select result from credit_verify where verify_type=0
+    </select>
+</mapper>

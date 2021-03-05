@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.UserInfoMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.UserInfo" id="UserInfo">
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="idCard" column="id_card"/>
+        <result property="preAddress" column="pre_address"/>
+        <result property="work" column="work"/>
+       <result property="cardFrontPhoto" column="card_frontphoto"/>
+        <result property="cardBackPhoto" column="card_backphoto"/>
+        <result property="prePhoto" column="pre_photo"/>
+        <result property="salary" column="salary"/>
+        <result property="company" column="company"/>
+        <result property="hjAddress" column="hj_address"/>
+        <result property="maritlStatus" column="maritl_status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!-- 查询表中的所有内容-->
+    <select id="selectUserInfo" resultType="com.zxr.mygraduation.entity.UserInfo" resultMap="UserInfo">
+        select * from user_info
+    </select>
+    <!-- 根据userId查询记录-->
+    <select id="selectByUserId" resultType="com.zxr.mygraduation.entity.UserInfo" resultMap="UserInfo">
+        select * from user_info where user_id=#{userId}
+    </select>
+    <!-- 实现对表记录的身份证信息插入 -->
+    <update id="insertUserInfo"   parameterType="com.zxr.mygraduation.entity.UserInfo">
+         update user_info set
+        user_name=#{userName},gender=#{gender},
+       birth=#{birth},id_card=#{idCard},hj_address=#{hjAddress}
+        where user_id=#{userId}
+    </update>
+    <insert id="addPhoto" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id"
+            parameterType="com.zxr.mygraduation.entity.UserInfo">
+        insert into user_info (user_id,card_frontphoto)
+        values(#{userId},#{cardFrontPhoto})
+    </insert>
+    <!-- 实现对表记录身份证正反照片的插入 -->
+    <update id="updatePhoto" parameterType="com.zxr.mygraduation.entity.UserInfo">
+        update user_info set
+        card_frontphoto=#{cardFrontPhoto} where user_id=#{userId}
+    </update>
+
+    <!-- 更新用户部分信息记录-->
+    <update id="updateInfo" parameterType="com.zxr.mygraduation.entity.UserInfo">
+        update user_info set
+        pre_address=#{preAddress},work=#{work},
+       salary=#{salary},company=#{company},maritl_status=#{maritlStatus}
+        where user_id=#{userId}
+    </update>
+    <update id="updateUserPhoto" parameterType="com.zxr.mygraduation.entity.UserInfo">
+        update user_info set pre_photo=#{prePhoto} where user_id=#{userId}
+    </update>
+    <!--&lt;!&ndash; 根据id删除记录&ndash;&gt;-->
+    <!--<delete id="deleteDs">-->
+        <!--delete from day_summary where cust_id=#{custId}-->
+    <!--</delete>-->
+    <!--&lt;!&ndash; 分页显示&ndash;&gt;-->
+    <!--<select id="pageDaySummaryList" resultMap="DaySummary">-->
+        <!--select * from day_summary limit #{pageNow},#{pageSize}-->
+    <!--</select>-->
+</mapper>

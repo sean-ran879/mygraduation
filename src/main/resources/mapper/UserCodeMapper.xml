@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.UserCodeMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.UserCode" id="UserCode">
+        <result property="userPhone" column="user_phone"/>
+        <result property="userCode" column="user_code"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+    <!-- 根据userPhone查询记录-->
+    <select id="selectByUserPhone" resultType="com.zxr.mygraduation.entity.UserCode" resultMap="UserCode">
+        select * from user_code where user_phone=#{userPhone}
+    </select>
+    <!-- 实现对表记录的插入 -->
+    <insert id="insertUserCode" useGeneratedKeys="true" keyProperty="userPhone" keyColumn="user_phone"
+            parameterType="com.zxr.mygraduation.entity.UserCode">
+        insert into user_code (user_phone,user_code)
+        values(#{userPhone},#{userCode})
+    </insert>
+    <!--&lt;!&ndash; 更新修改记录&ndash;&gt;-->
+    <!--<update id="updateDs" parameterType="com.jrx.mydatareport.model.DaySummary">-->
+    <!--update day_summary set-->
+    <!--update_time=#{updateTime},-->
+    <!--trans_date=#{transDate},-->
+    <!--surname=#{surname},-->
+    <!--tran_max_amt=#{tranMaxAmt},-->
+    <!--pay_amt=#{payAmt},-->
+    <!--tran_cnt=#{tranCnt},-->
+    <!--pay_cnt=#{payCnt},-->
+    <!--tran_amt=#{tranAmt}-->
+    <!--where cust_id=#{custId}-->
+    <!--</update>-->
+    <!-- 根据id删除记录-->
+    <delete id="deleteUserCode">
+    delete from user_code where user_phone=#{userPhone}
+    </delete>
+    <!--&lt;!&ndash; 分页显示&ndash;&gt;-->
+    <!--<select id="pageDaySummaryList" resultMap="DaySummary">-->
+    <!--select * from day_summary limit #{pageNow},#{pageSize}-->
+    <!--</select>-->
+</mapper>

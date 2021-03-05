@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="iframe-h" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../resource/common/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../resource/css/common.css" media="all"/>
+</head>
+<style>
+    .layui-form-item {
+        width: 350px;
+    }
+</style>
+<body>
+<table id="tables" lay-filter="tables"></table>
+<script type="text/javascript" src="../resource/common/layui/layui.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    layui.use(['table', 'layer', 'laydate', 'form'], function () {
+        var table = layui.table,
+            $ = layui.$,
+            layer = layui.layer,
+            form = layui.form;
+        var tableIns = table.render({
+            elem: '#tables'
+            , skin: 'line' //行边框风格
+            , even: true //开启隔行背景
+            , size: 'lg' //尺寸的表格
+            , url: '/suggestInfo/getSuggest2' //数据接口
+            , method: 'get'
+            , id: 'tableId'
+            , toolbar: '#header'
+            , cols: [
+                [ //表头
+                    {field: 'id', title: 'ID'}
+                    , {field: 'phone', title: '联系方式'}
+                    , {field: 'suggest', title: '反馈内容'}
+                    , {field: 'updateTime', title: '解决时间'}
+                ]
+            ]
+        });
+
+    });
+</script>
+
+</body>
+</html>

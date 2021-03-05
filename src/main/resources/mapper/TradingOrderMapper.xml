@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.TradingOrderMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.TradingOrder" id="TradingOrder">
+        <result property="transflowId" column="transflow_id"/>
+        <result property="loanId" column="loan_id"/>
+        <result property="investId" column="invest_id"/>
+        <result property="allMoney" column="all_money"/>
+        <result property="totalPeriod" column="total_period"/>
+        <result property="useLoan" column="use_loan"/>
+        <result property="rate" column="rate"/>
+        <result property="creditValue" column="credit_value"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="transTime" column="trans_time"/>
+    </resultMap>
+    <select id="getMoneySort" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0
+              ORDER BY all_money asc
+    </select>
+    <select id="getCreditSort" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0
+              ORDER BY credit_value asc
+    </select>
+    <select id="getMoneySort1" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0
+              ORDER BY all_money desc
+    </select>
+    <select id="getCreditSort1" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0
+              ORDER BY credit_value desc
+    </select>
+    <select id="getMoneySort2" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and all_money &lt;= #{allMoney} and
+             total_period=#{totalPeriod} ORDER BY all_money asc
+    </select>
+    <select id="getCreditSort2" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and all_money &lt;= #{allMoney} and
+             total_period=#{totalPeriod} ORDER BY credit_value asc
+    </select>
+    <select id="getMoneySort3" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and all_money &lt;= #{allMoney} and
+             total_period=#{totalPeriod} ORDER BY all_money desc
+    </select>
+    <select id="getCreditSort3" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and all_money &lt;= #{allMoney} and
+             total_period=#{totalPeriod} ORDER BY credit_value desc
+    </select>
+    <select id="getMoneySort4" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and all_money &lt;= #{allMoney}
+            ORDER BY all_money asc
+    </select>
+    <select id="getCreditSort4" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and all_money &lt;= #{allMoney}
+            ORDER BY credit_value asc
+    </select>
+    <select id="getMoneySort5" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and all_money &lt;= #{allMoney}
+            ORDER BY all_money desc
+    </select>
+    <select id="getCreditSort5" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and all_money &lt;= #{allMoney}
+            ORDER BY credit_value desc
+    </select>
+    <select id="getMoneySort6" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and total_period=#{totalPeriod}
+            ORDER BY all_money asc
+    </select>
+    <select id="getCreditSort6" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and total_period=#{totalPeriod}
+            ORDER BY credit_value asc
+    </select>
+    <select id="getMoneySort7" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and total_period=#{totalPeriod}
+            ORDER BY all_money desc
+    </select>
+    <select id="getCreditSort7" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and total_period=#{totalPeriod}
+            ORDER BY credit_value desc
+    </select>
+    <select id="getTime1" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit1" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTime2" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit2" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTime3" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and all_money &lt;= #{allMoney}  and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit3" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and all_money &lt;= #{allMoney}  and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTime4" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and all_money &lt;= #{allMoney}  and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit4" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and all_money &lt;= #{allMoney}  and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTime5" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and total_period=#{totalPeriod}  and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit5" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and total_period=#{totalPeriod}  and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTime6" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and total_period=#{totalPeriod}  and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit6" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and total_period=#{totalPeriod}  and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTime7" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and total_period=#{totalPeriod}and all_money &lt;= #{allMoney}  and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit7" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and total_period=#{totalPeriod}and all_money &lt;= #{allMoney}  and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTime8" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and loan_id=0 and total_period=#{totalPeriod} and all_money &lt;= #{allMoney} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <select id="getTimeCredit8" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=0 and invest_id=0 and total_period=#{totalPeriod} and all_money &lt;= #{allMoney} and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= trans_time
+            ORDER BY trans_time desc
+    </select>
+    <update id="updateOrder" parameterType="com.zxr.mygraduation.entity.TradingOrder">
+        update trading_order <set>
+        <if test="loanId!=null">
+           loan_id=#{loanId},
+        </if>
+        <if test="investId!=null">
+            invest_id=#{investId},
+        </if>
+        <if test="allMoney!=null">
+            all_money=#{allMoney},
+        </if>
+
+        <if test="totalPeriod!=null">
+            total_period=#{totalPeriod},
+        </if>
+        <if test="useLoan!=null">
+            use_loan=#{useLoan},
+        </if>
+        <if test="rate!=null">
+        rate=#{rate},
+        </if>
+        <if test="creditValue!=null">
+            credit_value=#{creditValue},
+        </if>
+        <if test="orderStatus!=null">
+            order_status=#{orderStatus},
+        </if>
+
+    </set>
+        where transflow_id=#{transflowId}
+    </update>
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="transflowId" keyColumn="transflow_id"
+            parameterType="com.zxr.mygraduation.entity.TradingOrder">
+        insert into trading_order (loan_id,invest_id,all_money,use_loan,total_period,rate)
+        values(#{loanId},#{investId},#{allMoney},#{useLoan},#{totalPeriod},#{rate})
+    </insert>
+    <update id="updateOrder1" parameterType="com.zxr.mygraduation.entity.TradingOrder">
+        update trading_order <set>
+        <if test="loanId!=null">
+            loan_id=#{loanId},
+        </if>
+        <if test="investId!=null">
+            invest_id=#{investId},
+        </if>
+        <if test="allMoney!=null">
+            all_money=#{allMoney},
+        </if>
+
+        <if test="totalPeriod!=null">
+            total_period=#{totalPeriod},
+        </if>
+        <if test="useLoan!=null">
+            use_loan=#{useLoan},
+        </if>
+        <if test="rate!=null">
+            rate=#{rate},
+        </if>
+        <if test="creditValue!=null">
+            credit_value=#{creditValue},
+        </if>
+        <if test="orderStatus!=null">
+            orderStatus=#{orderStatus},
+        </if>
+
+    </set>
+        where loan_id=#{loanId}
+    </update>
+    <select id="getPreLoan" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status <![CDATA[!=]]> 1 and loan_id=#{loanId}
+    </select>
+    <select id="getPreLoan1" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status <![CDATA[!=]]> 1 and invest_id=#{investId}
+    </select>
+    <select id="getTransOrder2" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=1 and invest_id=#{investId}
+    </select>
+    <select id="getTransId" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where transflow_id=#{transflowId}
+    </select>
+    <select id="getTransOrder1" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+            select * from trading_order where order_status=1 and loan_id=#{loanId}
+    </select>
+    <select id="loanNum" resultType="java.lang.Integer">
+        select count(*) from trading_order where order_status=0 and invest_id=0
+    </select>
+    <select id="investNum" resultType="java.lang.Integer">
+        select count(*) from trading_order where order_status=0 and loan_id=0
+    </select>
+    <select id="orderNum" resultType="java.lang.Integer">
+        select count(*) from trading_order where order_status=1
+    </select>
+    <select id="getOrderAll" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+        select * from trading_order where order_status=1
+    </select>
+    <select id="getOrderAll2" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+        select * from trading_order where order_status=2
+    </select>
+    <select id="getOrderAll0" resultType="com.zxr.mygraduation.entity.TradingOrder" resultMap="TradingOrder">
+        select * from trading_order where order_status=0
+    </select>
+</mapper>

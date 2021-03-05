@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.SuggestInfoMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.SuggestInfo" id="SuggestInfo">
+        <result property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="suggest" column="suggest"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!-- 查询表中的待解决的内容-->
+    <select id="getSuggest1" resultType="com.zxr.mygraduation.entity.SuggestInfo"
+            resultMap="SuggestInfo">
+        select * from suggest_info where status=0
+    </select>
+    <!-- 查询表中的已解决的内容-->
+    <select id="getSuggest2" resultType="com.zxr.mygraduation.entity.SuggestInfo"
+            resultMap="SuggestInfo">
+        select * from suggest_info where status=1
+    </select>
+    <update id="updateSuggest" parameterType="com.zxr.mygraduation.entity.SuggestInfo">
+        update suggest_info
+        <set>
+            <if test="phone!=null">
+                phone=#{phone},
+            </if>
+            <if test="suggest!=null">
+                suggest=#{suggest},
+            </if>
+            <if test="status!=null">
+                status=#{status}
+            </if>
+        </set>
+        where  id=#{id}
+    </update>
+    <!-- 实现对表记录的插入 -->
+    <insert id="insertSuggest" useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+            parameterType="com.zxr.mygraduation.entity.SuggestInfo">
+        insert into suggest_info (id,phone,suggest)
+        values(0,#{phone},#{suggest})
+    </insert>
+
+</mapper>

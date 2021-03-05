@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxr.mygraduation.dao.AccountFlowMapper">
+    <!-- 实体类和表字段的映射-->
+    <resultMap type="com.zxr.mygraduation.entity.AccountFlow" id="AccountFlow">
+        <result property="id" column="id"/>
+        <result property="outAccount" column="out_account"/>
+        <result property="inAccount" column="in_account"/>
+        <result property="money" column="money"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+    <!-- 查询表中的所有内容,按时间排序-->
+    <select id="selectAccountFlow" resultType="com.zxr.mygraduation.entity.AccountFlow" resultMap="AccountFlow">
+        select * from account_flow order by create_time
+    </select>
+    <!-- 实现对表记录的插入 -->
+    <insert id="insertAccountFlow" useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+            parameterType="com.zxr.mygraduation.entity.AccountFlow">
+        insert into account_flow (out_account,in_account,money)values(#outAccount},#{inAccount},#{money})
+    </insert>
+</mapper>
